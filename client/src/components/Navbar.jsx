@@ -11,7 +11,9 @@ const Navbar = () => {
         <a href="#">Employer</a>
       </div>
       <div className="flex gap-6 items-center">
-        <button className=" border-2 border-white px-3 py-1 rounded-full text-white">Sign Up</button>
+        <button className=" border-2 border-white px-3 py-1 rounded-full text-white">
+          <Link to={"/register"}>Sign Up</Link>
+        </button>
         <button className=" bg-blue-600 text-white px-3 py-1 rounded-full text-xl">
           <Link to="/login">Login</Link>
         </button>

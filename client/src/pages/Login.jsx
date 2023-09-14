@@ -3,12 +3,14 @@ import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { SlSocialSpotify } from "react-icons/sl";
 // import LogoContainer from "../components/LogoContainer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const  navigateTo = useNavigate()
 
   
 
@@ -22,6 +24,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigateTo("/")
   };
 
 
