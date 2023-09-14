@@ -1,19 +1,14 @@
-import {  useState } from "react";
-import { Link } from "react-router-dom";
-
-import { SlSocialSpotify } from "react-icons/sl";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Register = () => {
+  const navigateTo = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
-
-
-
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +18,13 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
-    
-    
+    console.log(formData)
+    navigateTo("/")
   };
 
-
-
+ 
 
   return (
     <div className="h-[100vh] bg-gradient-to-r from-slate-900 to-blue-800  flex flex-col place-content-center ">
@@ -97,9 +91,13 @@ const Register = () => {
             <span className="px-8 md:px-12 text-xs md:text-md  text-white">
               Already have an Account ?{" "}
             </span>
-            <button className="w-full border-2 text-black hover:text-white border-blue-600 font-noormal transition-all duration-300 bg-white  py-2 rounded-full my-3 hover:bg-blue-500  hover:border-white focus:outline-none focus:ring focus:ring-blue-200">
-              <Link to="/login" className=" flex items-center justify-center gap-2">
-                Login here 
+            <button className="w-full border-2 text-black hover:text-white border-blue-600 font-noormal transition-all duration-300  py-2 rounded-full my-3 bg-blue-500  ">
+              <Link
+                to="/login"
+                className=" flex items-center justify-center gap-2"
+               
+              >
+                Login here
               </Link>
             </button>
           </form>
