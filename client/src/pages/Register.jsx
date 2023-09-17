@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-
 const Register = () => {
-  const navigateTo = useNavigate()
+  const navigateTo = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    role: "",
     password: "",
   });
 
@@ -18,13 +18,12 @@ const Register = () => {
     });
   };
 
-  const handleSubmit =  (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    navigateTo("/")
+    console.log(formData);
+    setFormData()
+    navigateTo("/login");
   };
-
- 
 
   return (
     <div className="h-[100vh] bg-gradient-to-r from-slate-900 to-blue-800  flex flex-col place-content-center ">
@@ -48,6 +47,7 @@ const Register = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-full focus:outline-none focus:border-green-500"
+                placeholder="Enter your Name"
               />
             </div>
             <div className="mb-4">
@@ -64,7 +64,34 @@ const Register = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded-full focus:outline-none focus:border-green-500"
+                placeholder="Enter your email"
               />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="role"
+                className="block font-medium mb-1 text-white py-1"
+              >
+                Your Role
+              </label>
+              <select
+                className="w-full px-2 py-2 pr-4 border rounded-full focus:outline-none focus:border-green-500 "
+                onChange={handleInputChange}
+                name="role"
+                id="role"
+              >
+                <option value="recruiter">Recruiter</option>
+                <option value="jobseeker">Job seeker</option>
+              </select>
+              {/* <input
+                type="text"
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border rounded-full focus:outline-none focus:border-green-500"
+                placeholder="Enter - `Recuiter/Job Seeker`"
+              /> */}
             </div>
             <div className="mb-4">
               <label
@@ -79,6 +106,7 @@ const Register = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
+                placeholder="Enter your password"
                 className="w-full px-3 py-2 border rounded-full focus:outline-none focus:border-green-500"
               />
             </div>
@@ -95,7 +123,6 @@ const Register = () => {
               <Link
                 to="/login"
                 className=" flex items-center justify-center gap-2"
-               
               >
                 Login here
               </Link>
