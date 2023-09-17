@@ -3,15 +3,16 @@ import { UserDetails } from "../models/userDetails.js";
 import { createJwtToken } from "../utils/createJwtToken.js";
 
 export const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, role, password } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !role || !password) {
     return res.send({
       error: "Please provide all required fields.",
       missingFields: {
-        name: !name,
-        email: !email,
-        password: !password,
+        name: name|| "undefined",
+        email: email|| "undefined",
+        role: role || "undefined",
+        password: password|| "undefined",
       },
     });
   }
@@ -25,7 +26,7 @@ export const registerUser = async (req, res) => {
       });
 
     const securedPass = await hashedPassword(password);
-    const newUser = new UserDetails({ name, email, password: securedPass });
+    const newUser = new UserDetails({ name, email, role, password: securedPass });
 
     // console.log(userWithToken)
 
@@ -38,10 +39,10 @@ export const registerUser = async (req, res) => {
 
     // const userDetail = { ...newUser, token: userToken };
 
-    const { name: userName, email: userEmail } = userWithToken._doc;
-    // const { token } = userWithToken;
+    const { name: userName, email: userEmail , role:userRole } = userWithToken._doc;
+    const { token } = userWithToken;
 
-    const sharedUserDetails = { userName, userEmail };
+    const sharedUserDetails = { userName, userEmail,userRole,token };
 
     res.status(200).send({
       success: true,
@@ -49,7 +50,7 @@ export const registerUser = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      success: false,
+      success: false, 
       message: "Error while registering the user",
       error: error,
     });
@@ -63,8 +64,8 @@ export const loginUser = async (req, res) => {
     return res.send({
       error: "Please provide all required fields.",
       missingFields: {
-        email: !email,
-        password: !password,
+        email: email|| "undefined",
+        password: password|| "undefined",
       },
     });
   }
@@ -88,18 +89,20 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const userToken = await createJwtToken(userExistOrNot);
-    const userWithToken = { ...userExistOrNot, token: userToken };
+    // const userToken = await createJwtToken(userExistOrNot);
+    // const userWithToken = { ...userExistOrNot, token: userToken };
 
-    const { name: userName, email: userEmail, _id: userId } = userWithToken._doc;
-    const { token } = userWithToken;
+    // const { name: userName, email: userEmail, _id: userId , role: userRole } = userWithToken._doc;
+    // const { token } = userWithToken;
 
-    const sharedUserDetails = { userId,userName, userEmail, token };
+    
+
+    // const sharedUserDetails = { userId,userName, userEmail, userRole, token };
 
     res.status(200).send({
       success: true,
       message:"Logged in successfully",
-      user: sharedUserDetails,
+      user: userExistOrNot,
     });
   } catch (error) {
     return res.status(500).send({

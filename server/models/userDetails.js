@@ -22,9 +22,9 @@ const userSchema = new mongoose.Schema(
       minlength: [1, "Password length should be greater than 6 character"],
       select: true,
     },
-    location: {
+    role: {
       type: String,
-      default: "India",
+      required:true
     },
   },
   { timestamps: true }
